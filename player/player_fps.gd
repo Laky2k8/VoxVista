@@ -1,10 +1,9 @@
 extends CharacterBody3D
 
-@onready var head = $Head
-@onready var camera = $Head/Camera3D
+@onready var head = $CameraPivot
 
 const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
+const JUMP_VELOCITY = 10
 const DECELERATION = 20.0
 const SENSITIVITY = 0.003
 
@@ -17,10 +16,10 @@ func _input(event: InputEvent):
 	
 	if event is InputEventMouseMotion and not paused:
 		#print("Mouse motion detected: ", event.relative)
-		head.rotate_y(-event.relative.x * SENSITIVITY)
+		'''head.rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-80), deg_to_rad(80))
-		#print("Camera rotation: ", camera.rotation_degrees)
+		#print("Camera rotation: ", camera.rotation_degrees)'''
 		
 	if Input.is_action_just_pressed("pause"):
 		paused = not paused

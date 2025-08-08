@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dgj1lqunsd1b1"]
+[gd_scene load_steps=11 format=3 uid="uid://dgj1lqunsd1b1"]
 
 [ext_resource type="Script" uid="uid://c0aqblicj5dhs" path="res://voxel/World.gd" id="1_e2o6t"]
 [ext_resource type="PackedScene" uid="uid://b5ye2yrxc3s0n" path="res://player/IsometricPlayer.tscn" id="2_e2o6t"]
+[ext_resource type="Script" uid="uid://c3q85kjq73g35" path="res://player/player_iso.gd" id="2_fc0e3"]
+[ext_resource type="ArrayMesh" uid="uid://h4jr5rha4nrh" path="res://assets/player/export/player.obj" id="3_fc0e3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_80nbo"]
 sky_top_color = Color(0, 0.469844, 0.744372, 1)
@@ -23,6 +25,9 @@ glow_enabled = true
 [sub_resource type="LabelSettings" id="LabelSettings_feb5d"]
 font_size = 50
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_fc0e3"]
+size = Vector3(1.45869, 2.07194, 1.7)
+
 [node name="Main" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -37,9 +42,6 @@ script = ExtResource("1_e2o6t")
 
 [node name="VoxelTerrain" type="VoxelTerrain" parent="World"]
 mesher = SubResource("VoxelMesherTransvoxel_e2o6t")
-
-[node name="CameraPivot" parent="." instance=ExtResource("2_e2o6t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 10)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -68,3 +70,17 @@ size_flags_vertical = 0
 text = "VoxVista Mobile vALPHA-0.0.1"
 label_settings = SubResource("LabelSettings_feb5d")
 horizontal_alignment = 1
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 0)
+script = ExtResource("2_fc0e3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 0, 0, 0)
+mesh = ExtResource("3_fc0e3")
+
+[node name="CameraPivot" parent="CharacterBody3D" instance=ExtResource("2_e2o6t")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0616699, -0.490108, 0)
+shape = SubResource("BoxShape3D_fc0e3")

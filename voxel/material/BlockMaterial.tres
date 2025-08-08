@@ -1,7 +1,0 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b5urjprt8sxpf"]
-
-[ext_resource type="Texture2D" uid="uid://brpdnl1lmjh3t" path="res://voxel/material/BlockAtlas.tres" id="1_2ullt"]
-
-[resource]
-albedo_texture = ExtResource("1_2ullt")
-texture_filter = 0

@@ -1,0 +1,155 @@
+[gd_scene load_steps=17 format=3 uid="uid://dgj1lqunsd1b1"]
+
+[ext_resource type="Script" uid="uid://dschp1tcycgyo" path="res://player_fps.gd" id="1_80nbo"]
+[ext_resource type="VoxelBlockyTypeLibrary" uid="uid://1clg02em0ea4" path="res://voxel/blocks_library.tres" id="2_e2o6t"]
+[ext_resource type="Script" uid="uid://d0wi38lgf07gb" path="res://RandomTerrain.gd" id="2_fc0e3"]
+[ext_resource type="Texture2D" uid="uid://b3yfguyi7y5fy" path="res://blocky_game_atlas.png" id="2_feb5d"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_80nbo"]
+sky_top_color = Color(0, 0.469844, 0.744372, 1)
+sky_horizon_color = Color(0.541431, 0.658892, 0.727524, 1)
+ground_bottom_color = Color(0.2, 0.2, 0.2, 1)
+ground_horizon_color = Color(0.541431, 0.658892, 0.727524, 1)
+
+[sub_resource type="Sky" id="Sky_e2o6t"]
+sky_material = SubResource("ProceduralSkyMaterial_80nbo")
+
+[sub_resource type="Environment" id="Environment_feb5d"]
+background_mode = 2
+sky = SubResource("Sky_e2o6t")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_e2o6t"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_feb5d"]
+points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607, 0.498884, 0.169713, 0.559144, 0.464172, 0.231051, -0.803591, 0.320455, 0.40741, 0.651043, -0.243523, -0.482789, 0.594843, 0.0822132, -0.362868, -0.682312, 0.289697, 0.469044, -0.654529, -0.0662713, -0.127444, 0.842701, -0.338103, -0.393435, -0.683942, -0.244717, 0.438255, 0.623309, 0.200849, 0.0841477, 0.977454, 0.114795, -0.0682023, -0.976458, -0.12927, 0.20055, -0.563129, -0.451454, -0.185527, 0.595453, -0.453475, -0.273363, 0.592268, 0.407754, -0.00693649, -0.476823, 0.49966, 0.375821, -0.588614, 0.316955, 0.111579, 0.563059, -0.481177, -0.41725, 0.527866, -0.270497, -0.484546, -0.596972, -0.0665097, -0.279747, 0.908561, 0.0533361, -0.250197, -0.880712, 0.205319, 0.263647, -0.902771, -0.127394, 0.293368, 0.871526, -0.157196, 0.373412, -0.526319, -0.328246, 0.499663, 0.476641, -0.00688856, 0.0531056, 0.875001, 0.324703, -0.154543, -0.590854, 0.465879, -0.0972799, -0.782358, -0.398188, -0.387649, -0.498171, 0.31565, -0.30068, -0.587995, -0.388901)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_feb5d"]
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_feb5d")
+texture_filter = 0
+
+[sub_resource type="ZN_FastNoiseLite" id="ZN_FastNoiseLite_fc0e3"]
+
+[sub_resource type="ZN_FastNoiseLite" id="ZN_FastNoiseLite_7jktm"]
+
+[sub_resource type="ZN_FastNoiseLiteGradient" id="ZN_FastNoiseLiteGradient_ryrav"]
+period = 0.0001
+amplitude = 10000.0
+
+[sub_resource type="ZN_FastNoiseLite" id="ZN_FastNoiseLite_eow3j"]
+noise_type = 5
+period = 0.0001
+warp_noise = SubResource("ZN_FastNoiseLiteGradient_ryrav")
+cellular_distance_function = 0
+
+[sub_resource type="VoxelGeneratorGraph" id="VoxelGeneratorGraph_j5wjh"]
+graph_data = {
+"connections": [[1, 0, 10, 0], [1, 0, 11, 0], [1, 0, 16, 0], [10, 0, 18, 1], [2, 0, 13, 1], [11, 0, 12, 0], [3, 0, 10, 1], [3, 0, 11, 1], [3, 0, 16, 1], [12, 0, 13, 0], [13, 0, 14, 2], [14, 0, 6, 0], [15, 0, 14, 0], [16, 0, 17, 0], [17, 0, 18, 0], [18, 0, 15, 2]],
+"nodes": {
+"1": {
+"gui_position": Vector2(340, 40),
+"type": "InputX"
+},
+"10": {
+"auto_connect": true,
+"gui_position": Vector2(540, 0),
+"noise": SubResource("ZN_FastNoiseLite_fc0e3"),
+"type": "FastNoise2D"
+},
+"11": {
+"auto_connect": true,
+"gui_position": Vector2(540, 160),
+"noise": SubResource("ZN_FastNoiseLite_7jktm"),
+"type": "FastNoise2D"
+},
+"12": {
+"b": 10.0,
+"gui_position": Vector2(800, 160),
+"type": "Multiply"
+},
+"13": {
+"gui_position": Vector2(1040, 160),
+"type": "Add"
+},
+"14": {
+"b": 0.0,
+"gui_position": Vector2(1240, 140),
+"threshold": 0.0,
+"type": "Select"
+},
+"15": {
+"a": 1.0,
+"b": 2.0,
+"gui_position": Vector2(1040, -20),
+"threshold": 0.0,
+"type": "Select"
+},
+"16": {
+"auto_connect": true,
+"gui_position": Vector2(540, -160),
+"noise": SubResource("ZN_FastNoiseLite_eow3j"),
+"type": "FastNoise2D"
+},
+"17": {
+"b": 0.1,
+"gui_position": Vector2(700, -160),
+"type": "Multiply"
+},
+"18": {
+"gui_position": Vector2(860, 0),
+"type": "Add"
+},
+"2": {
+"gui_position": Vector2(800, 280),
+"type": "InputY"
+},
+"3": {
+"gui_position": Vector2(340, 120),
+"type": "InputZ"
+},
+"6": {
+"gui_position": Vector2(1680, 120),
+"type": "OutputType"
+}
+},
+"version": 2
+}
+
+[sub_resource type="VoxelMesherBlocky" id="VoxelMesherBlocky_7jktm"]
+library = ExtResource("2_e2o6t")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.454618, 0.20814, 0, 0.416281, 0.909236, -0.5, 0.787422, -0.36051, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_feb5d")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+script = ExtResource("1_80nbo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+mesh = SubResource("CapsuleMesh_e2o6t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("ConvexPolygonShape3D_feb5d")
+
+[node name="Head" type="Node3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55267, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/Head"]
+
+[node name="VoxelViewer" type="VoxelViewer" parent="CharacterBody3D/Head"]
+
+[node name="TerrainHandler" type="Node3D" parent="."]
+script = ExtResource("2_fc0e3")
+
+[node name="VoxelTerrain" type="VoxelTerrain" parent="TerrainHandler"]
+material_override = SubResource("StandardMaterial3D_feb5d")
+generator = SubResource("VoxelGeneratorGraph_j5wjh")
+mesher = SubResource("VoxelMesherBlocky_7jktm")

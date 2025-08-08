@@ -1,62 +1,90 @@
 extends Node3D
+class_name VoxelWorld
 
-var chunk_scene = preload("res://voxel/Chunk.tscn")
-
-var load_radius = 5
-@onready var chunks = $Chunks
-@onready var player = $Player
-
-var load_thread = Thread.new()
+@onready var terrain: VoxelTerrain = $VoxelTerrain
+@onready var terrain_material = load("res://voxel/material/VoxelMat.tres")
+var current_seed: int = 0
 
 func _ready():
-	for i in range(0, load_radius):
-		for j in range(0, load_radius):
-			var chunk = chunk_scene.instantiate()
-			chunk.set_chunk_position(Vector2(i, j))
-			chunks.add_child(chunk)
-	
-	load_thread.start(self._thread_process, Thread.PRIORITY_HIGH)
-	
+	setup_terrain()
+	setup_generator()
+	setup_mesher()
+	setup_materials()
 
-func _thread_process():
-	# Disable thread safety checks for this thread
-	Thread.set_thread_safety_checks_enabled(false)
+func setup_terrain():
+	# Basic terrain settings
+	terrain.max_view_distance = 512
+	terrain.collision_layer = 1
+	terrain.collision_mask = 1
+
+func setup_generator():
+	# Create noise-based terrain generator
+	var generator = VoxelGeneratorNoise2D.new()
+	generator.channel = VoxelBuffer.CHANNEL_TYPE
 	
-	while(true):
-		for c in chunks.get_children():
-			var cx = c.chunk_position.x
-			var cz = c.chunk_position.y
-			
-			var px = floor(player.position.x / Global.DIMENSION.x)
-			var pz = floor(player.position.z / Global.DIMENSION.z)
-			
-			var new_x = posmod(cx - px + load_radius/2, load_radius) + px - load_radius/2
-			var new_z = posmod(cz - pz + load_radius/2, load_radius) + pz - load_radius/2
-			
-			if (new_x != cx or new_z != cz):
-				c.set_chunk_position(Vector2(int(new_x), int(new_z)))
-				c.call_deferred("generate")
-				c.call_deferred("update")
-
-
-func get_chunk(chunk_pos):
-	for c in chunks.get_children():
-		if c.chunk_position == chunk_pos:
-			return c
-	return null
-
-func _on_Player_place_block(pos, t):
-	var cx = int(floor(pos.x / Global.DIMENSION.x))
-	var cz = int(floor(pos.z / Global.DIMENSION.z))
+	# Create and configure noise
+	var noise = FastNoiseLite.new()
+	noise.seed = current_seed
+	noise.frequency = 0.02
+	noise.noise_type = FastNoiseLite.TYPE_PERLIN
+	noise.fractal_octaves = 4
+	noise.fractal_gain = 0.5
+	noise.fractal_lacunarity = 2.0
 	
-	var bx = posmod(floor(pos.x), Global.DIMENSION.x)
-	var by = posmod(floor(pos.y), Global.DIMENSION.y)
-	var bz = posmod(floor(pos.z), Global.DIMENSION.z)
-	
-	var c = get_chunk(Vector2(cx, cz))
-	if c != null:
-		c.blocks[bx][by][bz] = t
-		c.update()
+	generator.noise = noise
+	generator.curve = create_height_curve()
+	terrain.generator = generator
 
-func _on_Player_break_block(pos):
-	_on_Player_place_block(pos, Global.AIR)
+func create_height_curve() -> Curve:
+	var curve = Curve.new()
+	curve.add_point(Vector2(0.0, 0.0))  # Sea level
+	curve.add_point(Vector2(0.3, 0.1))  # Beach
+	curve.add_point(Vector2(0.6, 0.4))  # Hills
+	curve.add_point(Vector2(1.0, 1.0))  # Mountains
+	return curve
+
+func setup_mesher():
+	# Create blocky mesher for cube-style terrain
+	var mesher = VoxelMesherBlocky.new()
+	var library = VoxelBlockyLibrary.new()
+	
+	# Create block models
+	create_block_library(library)
+	mesher.library = library
+	terrain.mesher = mesher
+
+func create_block_library(library: VoxelBlockyLibrary):
+	# Air block (ID 0) - always first
+	var air_model = VoxelBlockyModelEmpty.new()
+	library.add_model(air_model)
+	
+	# Stone block (ID 1)
+	var stone_model = VoxelBlockyModelCube.new()
+	stone_model.color = Color(0.5, 0.5, 0.5)
+	library.add_model(stone_model)
+	
+	# Dirt block (ID 2)
+	var dirt_model = VoxelBlockyModelCube.new()
+	dirt_model.color = Color(0.6, 0.4, 0.2)
+	library.add_model(dirt_model)
+	
+	# Grass block (ID 3)
+	var grass_model = VoxelBlockyModelCube.new()
+	grass_model.color = Color(0.3, 0.7, 0.2)
+	library.add_model(grass_model)
+
+func setup_materials():
+	terrain.material_override = terrain_material;
+
+func regenerate_with_seed(new_seed: int):
+	current_seed = new_seed
+	setup_generator()
+	# Force regeneration
+	terrain.generator = terrain.generator
+
+func save_world(file_path: String):
+	terrain.save_modified_blocks()
+
+func load_world(file_path: String):
+	# World loading handled by VoxelStream
+	pass

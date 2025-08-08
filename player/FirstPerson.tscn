@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://cwyxa87nbi0gr"]
+[gd_scene load_steps=4 format=3 uid="uid://cbnnnabluqkpr"]
 
-[ext_resource type="Script" uid="uid://j56kyq4w6rl7" path="res://player/player_fps.gd" id="1_kbijj"]
+[ext_resource type="Script" uid="uid://dschp1tcycgyo" path="res://player/player_fps.gd" id="1_kbijj"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jou26"]
 
@@ -17,5 +17,7 @@ shape = SubResource("CapsuleShape3D_3q4kq")
 
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.559462, 0)
+
+[node name="VoxelViewer" type="VoxelViewer" parent="Head"]
 
 [node name="Camera3D" type="Camera3D" parent="Head"]

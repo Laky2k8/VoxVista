@@ -12,21 +12,26 @@ var paused = false
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
+
 func _input(event: InputEvent):
+	
+	if event is InputEventMouseMotion and not paused:
+		#print("Mouse motion detected: ", event.relative)
+		head.rotate_y(-event.relative.x * SENSITIVITY)
+		camera.rotate_x(-event.relative.y * SENSITIVITY)
+		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-80), deg_to_rad(80))
+		#print("Camera rotation: ", camera.rotation_degrees)
+		
 	if Input.is_action_just_pressed("pause"):
 		paused = not paused
 		
 		if paused:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			print("Mouse mode set to VISIBLE")
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
-func _unhandled_input(event: InputEvent):
-	if event is InputEventMouseMotion && !paused:
-		head.rotate_y(-event.relative.x * SENSITIVITY)
-		camera.rotate_x(-event.relative.y * SENSITIVITY)
-		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-80), deg_to_rad(80))
+			print("Mouse mode set to CAPTURED")
+
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.

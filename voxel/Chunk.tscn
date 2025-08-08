@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cvqdmj7cxale4"]
-
-[ext_resource type="Script" uid="uid://dnudud6cplge5" path="res://voxel/Chunk.gd" id="1_7djxa"]
-
-[node name="Chunk" type="StaticBody3D"]
-script = ExtResource("1_7djxa")

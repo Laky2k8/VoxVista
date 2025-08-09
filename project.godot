@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 Global="*res://Global.gd"
 MouseSystem="*res://mouse_system/MouseSystem.gd"
 
+[debug_draw_3d]
+
+settings/addon_root_folder="res://addons/addons/debug_draw_3d"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")

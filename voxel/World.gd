@@ -61,17 +61,41 @@ func create_block_library(library: VoxelBlockyLibrary):
 	
 	# Stone block (ID 1)
 	var stone_model = VoxelBlockyModelCube.new()
-	stone_model.color = Color(0.5, 0.5, 0.5)
+	stone_model.atlas_size_in_tiles = Vector2i(16, 16)
+	
+	stone_model.set_tile(VoxelBlockyModel.SIDE_NEGATIVE_X, Vector2i(0, 1))
+	stone_model.set_tile(VoxelBlockyModel.SIDE_POSITIVE_X, Vector2i(0, 1))
+	stone_model.set_tile(VoxelBlockyModel.SIDE_NEGATIVE_Y, Vector2i(0, 1))
+	stone_model.set_tile(VoxelBlockyModel.SIDE_POSITIVE_Y, Vector2i(0, 1))
+	stone_model.set_tile(VoxelBlockyModel.SIDE_NEGATIVE_Z, Vector2i(0, 1))
+	stone_model.set_tile(VoxelBlockyModel.SIDE_POSITIVE_Z, Vector2i(0, 1))
+	
 	library.add_model(stone_model)
 	
 	# Dirt block (ID 2)
 	var dirt_model = VoxelBlockyModelCube.new()
-	dirt_model.color = Color(0.6, 0.4, 0.2)
+	stone_model.atlas_size_in_tiles = Vector2i(16, 16)
+	
+	dirt_model.set_tile(VoxelBlockyModel.SIDE_NEGATIVE_X, Vector2i(0, 0))
+	dirt_model.set_tile(VoxelBlockyModel.SIDE_POSITIVE_X, Vector2i(0, 0))
+	dirt_model.set_tile(VoxelBlockyModel.SIDE_NEGATIVE_Y, Vector2i(0, 0))
+	dirt_model.set_tile(VoxelBlockyModel.SIDE_POSITIVE_Y, Vector2i(0, 0))
+	dirt_model.set_tile(VoxelBlockyModel.SIDE_NEGATIVE_Z, Vector2i(0, 0))
+	dirt_model.set_tile(VoxelBlockyModel.SIDE_POSITIVE_Z, Vector2i(0, 0))
+	
 	library.add_model(dirt_model)
 	
 	# Grass block (ID 3)
 	var grass_model = VoxelBlockyModelCube.new()
-	grass_model.color = Color(0.3, 0.7, 0.2)
+	stone_model.atlas_size_in_tiles = Vector2i(16, 16)
+	
+	grass_model.set_tile(VoxelBlockyModel.SIDE_NEGATIVE_X, Vector2i(1, 0))
+	grass_model.set_tile(VoxelBlockyModel.SIDE_POSITIVE_X, Vector2i(1, 0))
+	grass_model.set_tile(VoxelBlockyModel.SIDE_NEGATIVE_Y, Vector2i(0, 0))
+	grass_model.set_tile(VoxelBlockyModel.SIDE_POSITIVE_Y, Vector2i(2, 0))
+	grass_model.set_tile(VoxelBlockyModel.SIDE_NEGATIVE_Z, Vector2i(1, 0))
+	grass_model.set_tile(VoxelBlockyModel.SIDE_POSITIVE_Z, Vector2i(1, 0))
+	
 	library.add_model(grass_model)
 
 func setup_materials():

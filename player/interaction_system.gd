@@ -14,15 +14,15 @@ func _input(event: InputEvent):
 		print("Breaking")
 		var mouse_3d_pos = MouseSystem.get_mouse_world_position()
 		if mouse_3d_pos != null:
-			#var voxel_pos = Vector3i(floor(mouse_3d_pos.x), floor(mouse_3d_pos.y), floor(mouse_3d_pos.z))
-			_break_block(mouse_3d_pos)
+			var voxel_pos = Vector3i(floor(mouse_3d_pos.x), floor(mouse_3d_pos.y), floor(mouse_3d_pos.z))
+			_break_block(voxel_pos)
 			
-	elif Input.is_action_just_pressed("place"):
+	if Input.is_action_just_pressed("place"):
 		print("Placing")
 		var mouse_3d_pos = MouseSystem.get_mouse_world_position()
 		if mouse_3d_pos != null:
-			#var voxel_pos = Vector3i(floor(mouse_3d_pos.x), floor(mouse_3d_pos.y), floor(mouse_3d_pos.z))
-			_place_block(mouse_3d_pos, 1)
+			var voxel_pos = Vector3i(floor(mouse_3d_pos.x), floor(mouse_3d_pos.y), floor(mouse_3d_pos.z))
+			_place_block(voxel_pos, 3)
 			
 
 				
@@ -43,4 +43,12 @@ func _place_block(pos, block_type):
 	
 
 func _physics_process(delta: float) -> void:
-	pass
+	var mouse_3d_pos = MouseSystem.get_mouse_world_position()
+	if mouse_3d_pos != null:
+		DebugDraw3D.draw_gizmo(Transform3D(Basis(), mouse_3d_pos), Color(255, 0, 0, 0))
+		
+		var voxel_pos = Vector3i(floor(mouse_3d_pos.x), floor(mouse_3d_pos.y), floor(mouse_3d_pos.z))
+		var voxel = voxel_tool.get_voxel(voxel_pos)
+		if voxel:
+			print(voxel)
+			#voxel_tool.set_voxel(voxel_pos, 2)

@@ -61,3 +61,6 @@ func get_raycast_hit_object(collision_mask: int = 0b00000000_00000000_00000000_0
 	if raycast_result:
 		return raycast_result.collider
 	return null
+	
+func get_mouse_raycast(collision_mask: int = 1) -> Dictionary:
+	return _do_raycast_on_mouse_position(collision_mask)

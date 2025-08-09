@@ -1,5 +1,5 @@
-extends Node
 class_name SaveManager
+extends Node
 
 # TO SAVE THE WORLDS, THERE IS ONLY ONE WAY.
 # THE SAVEMANAGER CLASS MUST BE ADDED TO THE WORLD NODE.
@@ -38,7 +38,7 @@ func load_world(world_name: String):
 
 func create_new_world(world_name: String, seed: int):
 	current_world_name = world_name
-	get_parent().current_seed = seed
+	get_parent().seed = seed
 	get_parent().regenerate_with_seed(seed)
 	setup_stream()
 	print("Created new world: ", world_name, " with seed: ", seed)

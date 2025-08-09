@@ -1,0 +1,71 @@
+[
+	{
+		"name": "dirt",
+		"display_name": "Dirt",
+		"textures": 
+		{
+			"positive_x": [0, 0],
+			"negative_x": [0, 0],
+			"positive_y": [0, 0],
+			"negative_y": [0, 0],
+			"positive_z": [0, 0],
+			"negative_z": [0, 0]
+		}
+	},
+
+	{
+		"name": "grass_block",
+		"display_name": "Grass Block",
+		"textures": 
+		{
+			"positive_x": [1, 0],
+			"negative_x": [1, 0],
+			"positive_y": [2, 0],
+			"negative_y": [0, 0],
+			"positive_z": [1, 0],
+			"negative_z": [1, 0]
+		}
+	},
+
+	{
+		"name": "stone",
+		"display_name": "Stone",
+		"textures": 
+		{
+			"positive_x": [0, 1],
+			"negative_x": [0, 1],
+			"positive_y": [0, 1],
+			"negative_y": [0, 1],
+			"positive_z": [0, 1],
+			"negative_z": [0, 1]
+		}
+	},
+
+	{
+		"name": "pebbles",
+		"display_name": "Pebbles",
+		"textures": 
+		{
+			"positive_x": [1, 1],
+			"negative_x": [1, 1],
+			"positive_y": [1, 1],
+			"negative_y": [1, 1],
+			"positive_z": [1, 1],
+			"negative_z": [1, 1]
+		}
+	},
+
+	{
+		"name": "planks",
+		"display_name": "Planks",
+		"textures": 
+		{
+			"positive_x": [2, 1],
+			"negative_x": [2, 1],
+			"positive_y": [2, 1],
+			"negative_y": [2, 1],
+			"positive_z": [2, 1],
+			"negative_z": [2, 1]
+		}
+	}
+]

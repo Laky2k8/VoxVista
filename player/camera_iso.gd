@@ -6,13 +6,15 @@ extends Node3D
 @export var minZoom = 8
 
 @onready var camera_3d: Camera3D = $Camera3D
+@onready var player: CharacterBody3D = $"../Player"
+
 
 func _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	pass
 
 func _input(event):
 
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		rotation.y -= event.relative.x * cameraSens
 
 	_camera_zoom()
@@ -28,7 +30,7 @@ func _camera_zoom():
 	camera_3d.size = clamp(camera_3d.size, minZoom, maxZoom)
 
 func _physics_process(delta: float) -> void:
-	#_camera_movement()
+	position = player.position
 	pass
 
 '''func _camera_movement():

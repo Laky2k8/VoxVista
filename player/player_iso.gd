@@ -13,7 +13,8 @@ var player_rotation_y = 0.0
 var paused = false
 
 func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	pass
 
 func _input(event: InputEvent):
 	if event is InputEventMouseMotion and not paused:
@@ -22,12 +23,12 @@ func _input(event: InputEvent):
 		
 	if Input.is_action_just_pressed("pause"):
 		paused = not paused
-		if paused:
+		'''if paused:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			print("Mouse mode set to VISIBLE")
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-			print("Mouse mode set to CAPTURED")
+			print("Mouse mode set to CAPTURED")'''
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity
@@ -51,7 +52,7 @@ func _physics_process(delta: float) -> void:
 		rotation.y = player_rotation_y
 
 	# Get input direction and handle movement
-	var input_dir := Input.get_vector("move_left", "move_right", "forward", "backward")
+	var input_dir := Input.get_vector("strafe_left", "strafe_right", "forward", "backward")
 	
 	# Calculate movement direction based on player's current rotation
 	var forward = -transform.basis.z  # Player's forward direction

@@ -1,0 +1,137 @@
+[gd_scene load_steps=15 format=3 uid="uid://da3fsx48jtuby"]
+
+[ext_resource type="Texture2D" uid="uid://c3rsh8w8fdyfa" path="res://UI/Buttons/button_base_hover.png" id="1_bqqt6"]
+[ext_resource type="Script" uid="uid://djcnxbka1rv7i" path="res://scenes/MainMenu.gd" id="1_tbmy8"]
+[ext_resource type="Texture2D" uid="uid://rsp7ygabgpmw" path="res://UI/Buttons/button_base_press.png" id="2_wu84c"]
+[ext_resource type="Texture2D" uid="uid://de4doe4c4ucdv" path="res://UI/Buttons/button_base.png" id="3_8ln24"]
+[ext_resource type="Texture2D" uid="uid://cmhqwwfk83ph2" path="res://UI/logo_alt.png" id="4_wu84c"]
+[ext_resource type="Script" uid="uid://c0aqblicj5dhs" path="res://voxel/World.gd" id="5_8ln24"]
+[ext_resource type="Script" uid="uid://cct0jc5od0eop" path="res://scenes/menu_bg.gd" id="7_oa1go"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l6cm7"]
+texture = ExtResource("1_bqqt6")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bqqt6"]
+texture = ExtResource("2_wu84c")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rtw2f"]
+texture = ExtResource("3_8ln24")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rtw2f"]
+sky_top_color = Color(0, 0.469844, 0.744372, 1)
+sky_horizon_color = Color(0.541431, 0.658892, 0.727524, 1)
+ground_bottom_color = Color(0.2, 0.2, 0.2, 1)
+ground_horizon_color = Color(0.541431, 0.658892, 0.727524, 1)
+
+[sub_resource type="Sky" id="Sky_e2o6t"]
+sky_material = SubResource("ProceduralSkyMaterial_rtw2f")
+
+[sub_resource type="Environment" id="Environment_oa1go"]
+background_mode = 2
+sky = SubResource("Sky_e2o6t")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="VoxelMesherTransvoxel" id="VoxelMesherTransvoxel_tbmy8"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tbmy8")
+
+[node name="buttons" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -164.5
+offset_top = -138.0
+offset_right = 164.5
+offset_bottom = 231.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+size_flags_stretch_ratio = 5.22
+theme_override_constants/separation = 7
+
+[node name="Play" type="Button" parent="buttons"]
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 7
+theme_override_font_sizes/font_size = 30
+theme_override_styles/hover = SubResource("StyleBoxTexture_l6cm7")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_bqqt6")
+theme_override_styles/normal = SubResource("StyleBoxTexture_rtw2f")
+text = "New World"
+
+[node name="Options" type="Button" parent="buttons"]
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 7
+theme_override_font_sizes/font_size = 30
+theme_override_styles/hover = SubResource("StyleBoxTexture_l6cm7")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_bqqt6")
+theme_override_styles/normal = SubResource("StyleBoxTexture_rtw2f")
+text = "Options"
+
+[node name="Exit" type="Button" parent="buttons"]
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 7
+theme_override_font_sizes/font_size = 30
+theme_override_styles/hover = SubResource("StyleBoxTexture_l6cm7")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_bqqt6")
+theme_override_styles/normal = SubResource("StyleBoxTexture_rtw2f")
+text = "Exit
+"
+
+[node name="BG" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="BG"]
+transform = Transform3D(-0.866025, -0.454618, 0.208141, 0, 0.416281, 0.909236, -0.5, 0.787421, -0.36051, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="BG"]
+environment = SubResource("Environment_oa1go")
+
+[node name="World" type="Node3D" parent="BG"]
+script = ExtResource("5_8ln24")
+
+[node name="VoxelTerrain" type="VoxelTerrain" parent="BG/World"]
+mesher = SubResource("VoxelMesherTransvoxel_tbmy8")
+
+[node name="SaveManager" type="Node" parent="BG/World"]
+
+[node name="CameraPivot" type="Node3D" parent="BG"]
+script = ExtResource("7_oa1go")
+
+[node name="Camera3D" type="Camera3D" parent="BG/CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 100, 100)
+projection = 1
+size = 12.0
+near = 0.001
+
+[node name="VoxelViewer" type="VoxelViewer" parent="BG/CameraPivot/Camera3D"]
+view_distance = 256
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -324.0
+offset_top = 11.0
+offset_right = 321.0
+offset_bottom = 151.0
+grow_horizontal = 2
+texture = ExtResource("4_wu84c")
+
+[connection signal="pressed" from="buttons/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="buttons/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="buttons/Exit" to="." method="_on_exit_pressed"]

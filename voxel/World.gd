@@ -16,6 +16,7 @@ func setup_terrain():
 	terrain.max_view_distance = 512
 	terrain.collision_layer = 1
 	terrain.collision_mask = 1
+	terrain.area_edit_notification_enabled = true
 
 func setup_generator():
 	# Create noise-based terrain generator

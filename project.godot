@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="VoxVista"
-run/main_scene="uid://dgj1lqunsd1b1"
+run/main_scene="uid://da3fsx48jtuby"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Global="*res://Global.gd"
+MouseSystem="*res://mouse_system/MouseSystem.gd"
 
 [editor_plugins]
 
@@ -78,6 +79,14 @@ zoom_out={
 "deadzone": 0.2,
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":16,"position":Vector2(262, 24),"global_position":Vector2(271, 72),"factor":1.0,"button_index":5,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
+}
+strafe_left={
+"deadzone": 0.2,
+"events": []
+}
+strafe_right={
+"deadzone": 0.2,
+"events": []
 }
 
 [rendering]

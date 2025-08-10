@@ -3,6 +3,7 @@ class_name VoxelWorld
 
 @onready var terrain: VoxelTerrain = $VoxelTerrain
 @onready var terrain_material = load("res://voxel/material/VoxelMat.tres")
+@onready var terrain_generator = load("res://voxel/TerrainGen.gd")
 
 var seed: int = 0
 var world_name: String = ""

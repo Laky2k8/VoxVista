@@ -9,7 +9,7 @@ extends VBoxContainer
 @onready var name_input: LineEdit = $Panel/WorldName
 @onready var seed_input: SpinBox = $Panel/Seed
 
-const SAVE_DIR := "user://worlds/"
+const SAVE_DIR := "user://worlds"
 
 func _on_exit_pressed():
 	world_selector_panel.visible = false
@@ -17,10 +17,6 @@ func _on_exit_pressed():
 func _ready():
 	ensure_save_dir()
 	refresh_savefile_list()
-	
-	savefile_list.connect("item_selected", _on_savefile_selected)
-	new_world.connect("pressed", _new_world_creation)
-	load_button.connect("pressed", _load_world)
 	
 	load_button.disabled = true
 	
@@ -36,17 +32,35 @@ func refresh_savefile_list():
 	savefile_list.clear()
 	print("Populating list of savefiles")
 	var dir = DirAccess.open(SAVE_DIR)
+	
+	if dir:
+		print("Directory found!")
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if not dir.current_is_dir():
+				# Check if the file is an MP3 file
+				if file_name.get_file().ends_with(".db"):
+					print("Found world file: " + file_name)
+					var world_name = file_name.get_basename()
+					savefile_list.add_item(world_name)
+			file_name = dir.get_next()
+	else:
+		print("An error occurred when trying to access the path.")
+	'''print("Save dir opened")
 	var file_name = dir.get_next()
-	while file_name != "":
+	print("First filename: " + file_name)
+	while file_name:
 		print("Checking file...")
 		if file_name.ends_with(".db"):
 			var world_name = file_name.get_basename()
 			print(world_name)
 			savefile_list.add_item(world_name)
 		print("Not worldfile")
-		file_name = dir.get_next()
+		file_name = dir.get_next()'''
 
-func _on_savefile_selected():
+func _on_savefile_selected(savefile_number):
+	print("Selected savefile " + str(savefile_number))
 	load_button.disabled = false
 	
 func _load_world():

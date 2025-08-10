@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://da3fsx48jtuby"]
+[gd_scene load_steps=37 format=3 uid="uid://da3fsx48jtuby"]
 
 [ext_resource type="Script" uid="uid://djcnxbka1rv7i" path="res://scenes/MainMenu.gd" id="1_tbmy8"]
 [ext_resource type="Texture2D" uid="uid://csv4jrm7m8nb7" path="res://UI/SpecialButtons/play.png" id="2_1ajci"]
@@ -15,13 +15,17 @@
 [ext_resource type="Texture2D" uid="uid://157eqya2ldyv" path="res://UI/SpecialButtons/exit_press.png" id="9_gw5y6"]
 [ext_resource type="Texture2D" uid="uid://bwnk5g4kb1pia" path="res://UI/SpecialButtons/exit_hover.png" id="10_svtp6"]
 [ext_resource type="Script" uid="uid://bfxktxbfd13i" path="res://scenes/world_selector.gd" id="14_5pajh"]
-[ext_resource type="StyleBox" uid="uid://cb7vh2u2fohw8" path="res://UI/SpecialButtons/btnTex.tres" id="15_7b55j"]
+[ext_resource type="Texture2D" uid="uid://d4im3nch0ctq6" path="res://UI/SpecialButtons/close.png" id="16_qywvv"]
+[ext_resource type="Texture2D" uid="uid://bw3if2rs2r2ht" path="res://UI/SpecialButtons/close_press.png" id="17_3wgol"]
 [ext_resource type="Texture2D" uid="uid://j6u4yiydm5em" path="res://UI/SpecialButtons/new_game.png" id="17_hstxw"]
+[ext_resource type="Texture2D" uid="uid://umnce2p3rw5k" path="res://UI/SpecialButtons/close_hover.png" id="18_1acrt"]
 [ext_resource type="Texture2D" uid="uid://dknf5t2u35mh8" path="res://UI/SpecialButtons/new_game_press.png" id="18_8egab"]
 [ext_resource type="Texture2D" uid="uid://j2ocenm8lw2a" path="res://UI/SpecialButtons/new_game_hover.png" id="19_gw5y6"]
 [ext_resource type="Texture2D" uid="uid://c3rsh8w8fdyfa" path="res://UI/Buttons/button_base_hover.png" id="20_svtp6"]
 [ext_resource type="Texture2D" uid="uid://rsp7ygabgpmw" path="res://UI/Buttons/button_base_press.png" id="21_1dfpl"]
+[ext_resource type="FontFile" uid="uid://b3x2p7f5a7cx2" path="res://assets/PixelCode.ttf" id="22_3wgol"]
 [ext_resource type="Texture2D" uid="uid://de4doe4c4ucdv" path="res://UI/Buttons/button_base.png" id="22_qywvv"]
+[ext_resource type="AudioStream" uid="uid://mjwda17wmsaf" path="res://assets/music/Poofy Reel.mp3" id="26_1acrt"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rtw2f"]
 sky_top_color = Color(0, 0.469844, 0.744372, 1)
@@ -42,6 +46,9 @@ glow_enabled = true
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jk1qb"]
 texture = ExtResource("8_tbmy8")
+
+[sub_resource type="Theme" id="Theme_1acrt"]
+default_font = ExtResource("22_3wgol")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_svtp6"]
 texture = ExtResource("22_qywvv")
@@ -174,23 +181,17 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxTexture_jk1qb")
 
-[node name="Exit" type="Button" parent="WorldSelector/Panel"]
+[node name="Exit" type="TextureButton" parent="WorldSelector/Panel"]
 texture_filter = 1
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -135.377
+layout_mode = 0
+offset_left = 668.591
 offset_top = 35.0
-offset_right = -33.3773
-offset_bottom = 130.0
-grow_horizontal = 0
-theme_override_font_sizes/font_size = 40
-theme_override_styles/focus = ExtResource("15_7b55j")
-theme_override_styles/hover = ExtResource("15_7b55j")
-theme_override_styles/pressed = ExtResource("15_7b55j")
-theme_override_styles/normal = ExtResource("15_7b55j")
-text = "X"
+offset_right = 767.591
+offset_bottom = 133.0
+texture_normal = ExtResource("16_qywvv")
+texture_pressed = ExtResource("17_3wgol")
+texture_hover = ExtResource("18_1acrt")
+stretch_mode = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="WorldSelector/Panel"]
 layout_mode = 0
@@ -217,6 +218,8 @@ offset_left = 41.0
 offset_top = 85.0
 offset_right = 412.0
 offset_bottom = 127.0
+theme = SubResource("Theme_1acrt")
+max_value = 9.22337e+18
 
 [node name="WorldName" type="LineEdit" parent="WorldSelector/Panel"]
 layout_mode = 0
@@ -224,6 +227,7 @@ offset_left = 41.0
 offset_top = 35.0
 offset_right = 412.0
 offset_bottom = 77.0
+theme_override_fonts/font = ExtResource("22_3wgol")
 
 [node name="Worlds" type="ItemList" parent="WorldSelector/Panel"]
 layout_mode = 0
@@ -233,11 +237,13 @@ offset_right = 653.0
 offset_bottom = 485.0
 
 [node name="Load" type="Button" parent="WorldSelector/Panel"]
+texture_filter = 1
 layout_mode = 0
 offset_left = 489.044
 offset_top = 495.0
 offset_right = 652.044
 offset_bottom = 568.0
+theme_override_fonts/font = ExtResource("22_3wgol")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/disabled = SubResource("StyleBoxTexture_svtp6")
 theme_override_styles/hover = SubResource("StyleBoxTexture_3wgol")
@@ -246,7 +252,16 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_vr8o3")
 text = "Load
 "
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("26_1acrt")
+volume_db = -10.008
+autoplay = true
+parameters/looping = true
+
 [connection signal="pressed" from="HBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="HBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="HBoxContainer/Exit" to="." method="_on_exit_pressed"]
 [connection signal="pressed" from="WorldSelector/Panel/Exit" to="WorldSelector" method="_on_exit_pressed"]
+[connection signal="pressed" from="WorldSelector/Panel/NewWorld" to="WorldSelector" method="_new_world_creation"]
+[connection signal="item_selected" from="WorldSelector/Panel/Worlds" to="WorldSelector" method="_on_savefile_selected"]
+[connection signal="pressed" from="WorldSelector/Panel/Load" to="WorldSelector" method="_load_world"]

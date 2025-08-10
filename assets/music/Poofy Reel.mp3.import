@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://mjwda17wmsaf"
+path="res://.godot/imported/Poofy Reel.mp3-4d553d0ae6072360ee09eca86fa6b113.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Poofy Reel.mp3"
+dest_files=["res://.godot/imported/Poofy Reel.mp3-4d553d0ae6072360ee09eca86fa6b113.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

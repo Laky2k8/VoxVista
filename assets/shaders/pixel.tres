@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dv83wq8iu6yst"]
+
+[ext_resource type="Shader" uid="uid://cqopp4vrvwx00" path="res://assets/shaders/pixel.gdshader" id="1_7pv2n"]
+
+[resource]
+shader = ExtResource("1_7pv2n")
+shader_parameter/screen_size = Vector2(1280, 720)
+shader_parameter/pixel_size = 4.0

@@ -1,9 +1,7 @@
 extends Node3D
-class_name VoxelWorld
 
 @onready var terrain: VoxelTerrain = $VoxelTerrain
 @onready var terrain_material = load("res://voxel/material/VoxelMat.tres")
-@onready var terrain_generator = load("res://voxel/TerrainGen.gd")
 
 var seed: int = 0
 var world_name: String = ""
@@ -54,6 +52,9 @@ func setup_generator():
 	generator.noise = noise
 	generator.curve = create_height_curve()
 	terrain.generator = generator
+	
+	
+	
 
 func create_height_curve() -> Curve:
 	var curve = Curve.new()
@@ -92,9 +93,9 @@ func create_block_library(library: VoxelBlockyLibrary):
 			json_successful = true
 			blocks = data_received
 		else:
-			print("Unexpected Data")
+			push_warning("Unexpected Data")
 	else:
-		print("JSON Prase Error: ", json.get_error_message(), " in ", json_text)
+		push_warning("JSON Prase Error: ", json.get_error_message(), " in ", json_text)
 	
 	if json_successful:
 		print("Parsing JSON and filling Block library...")
@@ -125,6 +126,7 @@ func create_block_library(library: VoxelBlockyLibrary):
 			print(block["name"] + " added!")
 
 	else:
+		push_warning("Blocks cannot be loaded! Program exiting")
 		get_tree().quit(-1)
 	
 	# Stone block (ID 1)

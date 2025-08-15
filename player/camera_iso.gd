@@ -29,6 +29,7 @@ func _camera_zoom():
 	
 	camera_3d.size += zoomChange
 	camera_3d.size = clamp(camera_3d.size, minZoom, maxZoom)
+	Global.zoom_factor = camera_3d.size
 
 func _physics_process(delta: float) -> void:
 	position = player.position

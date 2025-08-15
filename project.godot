@@ -11,9 +11,12 @@ config_version=5
 [application]
 
 config/name="VoxVista"
+config/version="v0.5"
 run/main_scene="uid://da3fsx48jtuby"
 config/features=PackedStringArray("4.4", "Mobile")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="uid://bp1hwbwi57unf"
+config/icon="uid://baemr0mqyqonk"
 
 [autoload]
 
@@ -23,6 +26,12 @@ MouseSystem="*res://mouse_system/MouseSystem.gd"
 [debug_draw_3d]
 
 settings/addon_root_folder="res://addons/addons/debug_draw_3d"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
@@ -112,7 +121,3 @@ zoom={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":1,"pressure":0.0,"pressed":true,"script":null)
 ]
 }
-
-[rendering]
-
-renderer/rendering_method="mobile"

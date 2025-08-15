@@ -68,7 +68,7 @@ func save_world_metadata():
 		file.store_string(JSON.stringify(metadata))
 		file.close()
 	else:
-		print("Could not save world metadata!")
+		push_warning("Could not save world metadata!")
 		
 func load_world_metadata():
 	var metadata_path = save_directory + current_world_name + "_metadata.json"
@@ -91,6 +91,6 @@ func load_world_metadata():
 				print("Loaded metadata for world: ", current_world_name)
 			
 		else:
-			print("Parsing metadata file failed! World file could be corrupted!")
+			push_warning("Parsing metadata file failed! World file could be corrupted!")
 	else:
-		print("Could not load world metadata!")
+		push_warning("Could not load world metadata!")

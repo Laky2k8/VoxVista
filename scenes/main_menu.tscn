@@ -1,11 +1,10 @@
-[gd_scene load_steps=37 format=3 uid="uid://da3fsx48jtuby"]
+[gd_scene load_steps=38 format=3 uid="uid://da3fsx48jtuby"]
 
 [ext_resource type="Script" uid="uid://djcnxbka1rv7i" path="res://scenes/MainMenu.gd" id="1_tbmy8"]
 [ext_resource type="Texture2D" uid="uid://csv4jrm7m8nb7" path="res://UI/SpecialButtons/play.png" id="2_1ajci"]
 [ext_resource type="Texture2D" uid="uid://dpuqsqblo4mtd" path="res://UI/SpecialButtons/play_press.png" id="3_7b55j"]
 [ext_resource type="Texture2D" uid="uid://vuwnbrgc16ot" path="res://UI/SpecialButtons/play_hover.png" id="4_5pajh"]
 [ext_resource type="Texture2D" uid="uid://cmhqwwfk83ph2" path="res://UI/logo_alt.png" id="4_wu84c"]
-[ext_resource type="Script" uid="uid://c0aqblicj5dhs" path="res://voxel/World.gd" id="5_8ln24"]
 [ext_resource type="Texture2D" uid="uid://b61gnbnwdnduw" path="res://UI/SpecialButtons/settings.png" id="5_j7ex8"]
 [ext_resource type="Texture2D" uid="uid://df2bffvw3b5ft" path="res://UI/SpecialButtons/settings_press.png" id="6_a8gd2"]
 [ext_resource type="Texture2D" uid="uid://kctl8kx35qh3" path="res://UI/SpecialButtons/settings_hover.png" id="7_hstxw"]
@@ -14,6 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://bt74ssipken87" path="res://UI/panel.png" id="8_tbmy8"]
 [ext_resource type="Texture2D" uid="uid://157eqya2ldyv" path="res://UI/SpecialButtons/exit_press.png" id="9_gw5y6"]
 [ext_resource type="Texture2D" uid="uid://bwnk5g4kb1pia" path="res://UI/SpecialButtons/exit_hover.png" id="10_svtp6"]
+[ext_resource type="Script" uid="uid://luugmwsqhkn3" path="res://voxel/World_MainMenu.gd" id="11_qywvv"]
+[ext_resource type="Material" uid="uid://bslu8vu0dnc5r" path="res://assets/shaders/outline.tres" id="13_3wgol"]
 [ext_resource type="Script" uid="uid://bfxktxbfd13i" path="res://scenes/world_selector.gd" id="14_5pajh"]
 [ext_resource type="Texture2D" uid="uid://d4im3nch0ctq6" path="res://UI/SpecialButtons/close.png" id="16_qywvv"]
 [ext_resource type="Texture2D" uid="uid://bw3if2rs2r2ht" path="res://UI/SpecialButtons/close_press.png" id="17_3wgol"]
@@ -21,11 +22,12 @@
 [ext_resource type="Texture2D" uid="uid://umnce2p3rw5k" path="res://UI/SpecialButtons/close_hover.png" id="18_1acrt"]
 [ext_resource type="Texture2D" uid="uid://dknf5t2u35mh8" path="res://UI/SpecialButtons/new_game_press.png" id="18_8egab"]
 [ext_resource type="Texture2D" uid="uid://j2ocenm8lw2a" path="res://UI/SpecialButtons/new_game_hover.png" id="19_gw5y6"]
-[ext_resource type="Texture2D" uid="uid://c3rsh8w8fdyfa" path="res://UI/Buttons/button_base_hover.png" id="20_svtp6"]
-[ext_resource type="Texture2D" uid="uid://rsp7ygabgpmw" path="res://UI/Buttons/button_base_press.png" id="21_1dfpl"]
 [ext_resource type="FontFile" uid="uid://b3x2p7f5a7cx2" path="res://assets/PixelCode.ttf" id="22_3wgol"]
-[ext_resource type="Texture2D" uid="uid://de4doe4c4ucdv" path="res://UI/Buttons/button_base.png" id="22_qywvv"]
+[ext_resource type="Texture2D" uid="uid://1wq1smdp7gei" path="res://UI/SpecialButtons/play_disabled.png" id="23_qywvv"]
 [ext_resource type="AudioStream" uid="uid://mjwda17wmsaf" path="res://assets/music/Poofy Reel.mp3" id="26_1acrt"]
+[ext_resource type="Script" uid="uid://dlm46mhpk8wbl" path="res://UI/scripts/settings_menu.gd" id="26_hl5e0"]
+[ext_resource type="Material" uid="uid://dv83wq8iu6yst" path="res://assets/shaders/pixel.tres" id="26_vr8o3"]
+[ext_resource type="Script" uid="uid://djt2op42av483" path="res://render/pixellation.gd" id="27_1a85y"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rtw2f"]
 sky_top_color = Color(0, 0.469844, 0.744372, 1)
@@ -44,24 +46,23 @@ glow_enabled = true
 
 [sub_resource type="VoxelMesherTransvoxel" id="VoxelMesherTransvoxel_tbmy8"]
 
+[sub_resource type="QuadMesh" id="QuadMesh_1acrt"]
+material = ExtResource("13_3wgol")
+flip_faces = true
+size = Vector2(2, 2)
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jk1qb"]
 texture = ExtResource("8_tbmy8")
 
 [sub_resource type="Theme" id="Theme_1acrt"]
 default_font = ExtResource("22_3wgol")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_svtp6"]
-texture = ExtResource("22_qywvv")
-modulate_color = Color(1, 1, 1, 0.513726)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1a85y"]
+bg_color = Color(0.490196, 0.4, 0.305882, 1)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3wgol"]
-texture = ExtResource("20_svtp6")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1acrt"]
-texture = ExtResource("21_1dfpl")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vr8o3"]
-texture = ExtResource("22_qywvv")
+[sub_resource type="LabelSettings" id="LabelSettings_hl5e0"]
+font = ExtResource("22_3wgol")
+font_size = 50
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -71,51 +72,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_tbmy8")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -249.0
-offset_top = -180.0
-offset_right = -97.0
-offset_bottom = -66.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(3, 3)
-
-[node name="Play" type="TextureButton" parent="HBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-size_flags_vertical = 4
-size_flags_stretch_ratio = 0.0
-texture_normal = ExtResource("2_1ajci")
-texture_pressed = ExtResource("3_7b55j")
-texture_hover = ExtResource("4_5pajh")
-texture_focused = ExtResource("4_5pajh")
-
-[node name="Options" type="TextureButton" parent="HBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-size_flags_vertical = 4
-size_flags_stretch_ratio = 0.0
-texture_normal = ExtResource("5_j7ex8")
-texture_pressed = ExtResource("6_a8gd2")
-texture_hover = ExtResource("7_hstxw")
-texture_focused = ExtResource("7_hstxw")
-
-[node name="Exit" type="TextureButton" parent="HBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-size_flags_vertical = 4
-size_flags_stretch_ratio = 0.0
-texture_normal = ExtResource("8_8egab")
-texture_pressed = ExtResource("9_gw5y6")
-texture_hover = ExtResource("10_svtp6")
-texture_focused = ExtResource("10_svtp6")
 
 [node name="BG" type="Node3D" parent="."]
 
@@ -127,12 +83,10 @@ shadow_enabled = true
 environment = SubResource("Environment_oa1go")
 
 [node name="World" type="Node3D" parent="BG"]
-script = ExtResource("5_8ln24")
+script = ExtResource("11_qywvv")
 
 [node name="VoxelTerrain" type="VoxelTerrain" parent="BG/World"]
 mesher = SubResource("VoxelMesherTransvoxel_tbmy8")
-
-[node name="SaveManager" type="Node" parent="BG/World"]
 
 [node name="CameraPivot" type="Node3D" parent="BG"]
 script = ExtResource("7_oa1go")
@@ -146,8 +100,65 @@ near = 0.001
 [node name="VoxelViewer" type="VoxelViewer" parent="BG/CameraPivot/Camera3D"]
 view_distance = 256
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 1
+[node name="pixelOverlay" type="MeshInstance3D" parent="BG/CameraPivot/Camera3D"]
+material_override = ExtResource("13_3wgol")
+material_overlay = ExtResource("13_3wgol")
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_1acrt")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("26_1acrt")
+volume_db = -10.008
+autoplay = true
+parameters/looping = true
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -249.0
+offset_top = -180.0
+offset_right = -97.0
+offset_bottom = -66.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+
+[node name="Play" type="TextureButton" parent="UILayer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+texture_normal = ExtResource("2_1ajci")
+texture_pressed = ExtResource("3_7b55j")
+texture_hover = ExtResource("4_5pajh")
+texture_focused = ExtResource("4_5pajh")
+
+[node name="Options" type="TextureButton" parent="UILayer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+texture_normal = ExtResource("5_j7ex8")
+texture_pressed = ExtResource("6_a8gd2")
+texture_hover = ExtResource("7_hstxw")
+texture_focused = ExtResource("7_hstxw")
+
+[node name="Exit" type="TextureButton" parent="UILayer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+texture_normal = ExtResource("8_8egab")
+texture_pressed = ExtResource("9_gw5y6")
+texture_hover = ExtResource("10_svtp6")
+texture_focused = ExtResource("10_svtp6")
+
+[node name="TextureRect" type="TextureRect" parent="UILayer"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -158,9 +169,8 @@ offset_bottom = 151.0
 grow_horizontal = 2
 texture = ExtResource("4_wu84c")
 
-[node name="WorldSelector" type="VBoxContainer" parent="."]
+[node name="WorldSelector" type="VBoxContainer" parent="UILayer"]
 visible = false
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -175,13 +185,13 @@ grow_vertical = 2
 scale = Vector2(1.00809, 1)
 script = ExtResource("14_5pajh")
 
-[node name="Panel" type="Panel" parent="WorldSelector"]
+[node name="Panel" type="Panel" parent="UILayer/WorldSelector"]
 texture_filter = 1
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxTexture_jk1qb")
 
-[node name="Exit" type="TextureButton" parent="WorldSelector/Panel"]
+[node name="Exit" type="TextureButton" parent="UILayer/WorldSelector/Panel"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 668.591
@@ -193,13 +203,13 @@ texture_pressed = ExtResource("17_3wgol")
 texture_hover = ExtResource("18_1acrt")
 stretch_mode = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="WorldSelector/Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/WorldSelector/Panel"]
 layout_mode = 0
 offset_left = -3.05176e-05
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="NewWorld" type="TextureButton" parent="WorldSelector/Panel"]
+[node name="NewWorld" type="TextureButton" parent="UILayer/WorldSelector/Panel"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 427.541
@@ -212,7 +222,7 @@ texture_hover = ExtResource("19_gw5y6")
 texture_focused = ExtResource("19_gw5y6")
 stretch_mode = 0
 
-[node name="Seed" type="SpinBox" parent="WorldSelector/Panel"]
+[node name="Seed" type="SpinBox" parent="UILayer/WorldSelector/Panel"]
 layout_mode = 0
 offset_left = 41.0
 offset_top = 85.0
@@ -221,7 +231,7 @@ offset_bottom = 127.0
 theme = SubResource("Theme_1acrt")
 max_value = 9.22337e+18
 
-[node name="WorldName" type="LineEdit" parent="WorldSelector/Panel"]
+[node name="WorldName" type="LineEdit" parent="UILayer/WorldSelector/Panel"]
 layout_mode = 0
 offset_left = 41.0
 offset_top = 35.0
@@ -229,39 +239,102 @@ offset_right = 412.0
 offset_bottom = 77.0
 theme_override_fonts/font = ExtResource("22_3wgol")
 
-[node name="Worlds" type="ItemList" parent="WorldSelector/Panel"]
+[node name="Worlds" type="ItemList" parent="UILayer/WorldSelector/Panel"]
 layout_mode = 0
-offset_left = 43.0
-offset_top = 140.0
-offset_right = 653.0
-offset_bottom = 485.0
-
-[node name="Load" type="Button" parent="WorldSelector/Panel"]
-texture_filter = 1
-layout_mode = 0
-offset_left = 489.044
-offset_top = 495.0
-offset_right = 652.044
-offset_bottom = 568.0
+offset_left = 43.6469
+offset_top = 158.0
+offset_right = 639.647
+offset_bottom = 564.0
 theme_override_fonts/font = ExtResource("22_3wgol")
-theme_override_font_sizes/font_size = 30
-theme_override_styles/disabled = SubResource("StyleBoxTexture_svtp6")
-theme_override_styles/hover = SubResource("StyleBoxTexture_3wgol")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_1acrt")
-theme_override_styles/normal = SubResource("StyleBoxTexture_vr8o3")
-text = "Load
-"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("26_1acrt")
-volume_db = -10.008
-autoplay = true
-parameters/looping = true
+[node name="Load" type="TextureButton" parent="UILayer/WorldSelector/Panel"]
+layout_mode = 0
+offset_left = 667.599
+offset_top = 175.0
+offset_right = 765.599
+offset_bottom = 273.0
+texture_normal = ExtResource("2_1ajci")
+texture_pressed = ExtResource("3_7b55j")
+texture_hover = ExtResource("4_5pajh")
+texture_disabled = ExtResource("23_qywvv")
+texture_focused = ExtResource("4_5pajh")
+stretch_mode = 0
 
-[connection signal="pressed" from="HBoxContainer/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="HBoxContainer/Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="HBoxContainer/Exit" to="." method="_on_exit_pressed"]
-[connection signal="pressed" from="WorldSelector/Panel/Exit" to="WorldSelector" method="_on_exit_pressed"]
-[connection signal="pressed" from="WorldSelector/Panel/NewWorld" to="WorldSelector" method="_new_world_creation"]
-[connection signal="item_selected" from="WorldSelector/Panel/Worlds" to="WorldSelector" method="_on_savefile_selected"]
-[connection signal="pressed" from="WorldSelector/Panel/Load" to="WorldSelector" method="_load_world"]
+[node name="SettingsMenu" type="Control" parent="UILayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("26_hl5e0")
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="UILayer/SettingsMenu"]
+texture_filter = 1
+layout_mode = 2
+offset_right = 1920.0
+offset_bottom = 1080.0
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_1a85y")
+
+[node name="Fullscreen" type="Label" parent="UILayer/SettingsMenu"]
+layout_mode = 2
+offset_left = 100.0
+offset_top = 111.0
+offset_right = 433.0
+offset_bottom = 179.0
+size_flags_horizontal = 4
+text = "Fullscreen"
+label_settings = SubResource("LabelSettings_hl5e0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CheckBox" type="CheckBox" parent="UILayer/SettingsMenu/Fullscreen"]
+layout_mode = 0
+offset_left = 331.0
+offset_top = -23.0
+offset_right = 355.0
+offset_bottom = 1.0
+scale = Vector2(5, 5)
+icon_alignment = 1
+
+[node name="Exit" type="TextureButton" parent="UILayer/SettingsMenu"]
+texture_filter = 1
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+offset_left = 1704.0
+offset_top = 57.0
+offset_right = 1854.0
+offset_bottom = 207.0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = ExtResource("16_qywvv")
+texture_pressed = ExtResource("17_3wgol")
+texture_hover = ExtResource("18_1acrt")
+stretch_mode = 0
+
+[node name="RenderLayer" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="ColorRect" type="ColorRect" parent="RenderLayer"]
+material = ExtResource("26_vr8o3")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+script = ExtResource("27_1a85y")
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="UILayer/HBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="UILayer/HBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="UILayer/HBoxContainer/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="UILayer/WorldSelector/Panel/Exit" to="UILayer/WorldSelector" method="_on_exit_pressed"]
+[connection signal="pressed" from="UILayer/WorldSelector/Panel/NewWorld" to="UILayer/WorldSelector" method="_new_world_creation"]
+[connection signal="item_selected" from="UILayer/WorldSelector/Panel/Worlds" to="UILayer/WorldSelector" method="_on_savefile_selected"]
+[connection signal="pressed" from="UILayer/WorldSelector/Panel/Load" to="UILayer/WorldSelector" method="_load_world"]
+[connection signal="toggled" from="UILayer/SettingsMenu/Fullscreen/CheckBox" to="UILayer/SettingsMenu" method="_on_fullscreen_toggled"]
+[connection signal="pressed" from="UILayer/SettingsMenu/Exit" to="UILayer/SettingsMenu" method="_on_exit_pressed"]

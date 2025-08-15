@@ -1,24 +1,26 @@
-[gd_scene load_steps=10 format=3 uid="uid://dgj1lqunsd1b1"]
+[gd_scene load_steps=19 format=3 uid="uid://dgj1lqunsd1b1"]
 
 [ext_resource type="Script" uid="uid://c0aqblicj5dhs" path="res://voxel/World.gd" id="1_lbhrr"]
+[ext_resource type="Environment" uid="uid://d1a2ovmco7pjs" path="res://render/world_env.tres" id="1_p57ef"]
 [ext_resource type="Script" uid="uid://b6ytm0w1br717" path="res://player/interaction_system.gd" id="2_lnu2h"]
 [ext_resource type="Script" uid="uid://b01pky2s4t7et" path="res://voxel/SaveManager.gd" id="4_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://b5ye2yrxc3s0n" path="res://player/IsometricPlayer.tscn" id="4_u5sy4"]
+[ext_resource type="Material" uid="uid://dv83wq8iu6yst" path="res://assets/shaders/pixel.tres" id="5_iywne"]
+[ext_resource type="Script" uid="uid://djt2op42av483" path="res://render/pixellation.gd" id="7_gee14"]
+[ext_resource type="Texture2D" uid="uid://csv4jrm7m8nb7" path="res://UI/SpecialButtons/play.png" id="8_kvuet"]
+[ext_resource type="Script" uid="uid://b7gcldq2m1var" path="res://UI/scripts/pause_menu.gd" id="8_trtic"]
+[ext_resource type="Texture2D" uid="uid://dpuqsqblo4mtd" path="res://UI/SpecialButtons/play_press.png" id="9_trtic"]
+[ext_resource type="Texture2D" uid="uid://vuwnbrgc16ot" path="res://UI/SpecialButtons/play_hover.png" id="10_ir15t"]
+[ext_resource type="Texture2D" uid="uid://dkq2y3cn2synq" path="res://UI/SpecialButtons/exit.png" id="11_ca42v"]
+[ext_resource type="Texture2D" uid="uid://157eqya2ldyv" path="res://UI/SpecialButtons/exit_press.png" id="12_rysoc"]
+[ext_resource type="Texture2D" uid="uid://bwnk5g4kb1pia" path="res://UI/SpecialButtons/exit_hover.png" id="13_ssvqc"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_80nbo"]
-sky_top_color = Color(0, 0.469844, 0.744372, 1)
-sky_horizon_color = Color(0.541431, 0.658892, 0.727524, 1)
-ground_bottom_color = Color(0.2, 0.2, 0.2, 1)
-ground_horizon_color = Color(0.541431, 0.658892, 0.727524, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gee14"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.243137)
 
-[sub_resource type="Sky" id="Sky_lbhrr"]
-sky_material = SubResource("ProceduralSkyMaterial_80nbo")
-
-[sub_resource type="Environment" id="Environment_feb5d"]
-background_mode = 2
-sky = SubResource("Sky_lbhrr")
-tonemap_mode = 2
-glow_enabled = true
+[sub_resource type="BoxMesh" id="BoxMesh_0tnpc"]
+material = SubResource("StandardMaterial3D_gee14")
 
 [sub_resource type="VoxelMesherBlocky" id="VoxelMesherBlocky_lbhrr"]
 
@@ -28,17 +30,20 @@ font_size = 50
 [node name="Main" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.454618, 0.20814, 0, 0.416281, 0.909236, -0.5, 0.787422, -0.36051, 0, 0, 0)
+transform = Transform3D(-0.866025, -0.454618, 0.208141, 0, 0.416281, 0.909236, -0.5, 0.787421, -0.36051, 0, 0, 0)
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_feb5d")
-
-[node name="IsometricPlayer" parent="." instance=ExtResource("4_u5sy4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 200, 0)
+environment = ExtResource("1_p57ef")
 
 [node name="InteractionSystem" type="Node3D" parent="."]
 script = ExtResource("2_lnu2h")
+
+[node name="IsometricPlayer" parent="." instance=ExtResource("4_u5sy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 0)
+
+[node name="HoverOutline" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_0tnpc")
 
 [node name="World" type="Node3D" parent="."]
 script = ExtResource("1_lbhrr")
@@ -50,18 +55,34 @@ mesher = SubResource("VoxelMesherBlocky_lbhrr")
 script = ExtResource("4_lbhrr")
 metadata/_custom_type_script = "uid://b01pky2s4t7et"
 
-[node name="UI" type="Control" parent="."]
-layout_mode = 3
+[node name="RenderLayer" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="ColorRect" type="ColorRect" parent="RenderLayer"]
+material = ExtResource("5_iywne")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
+script = ExtResource("7_gee14")
 metadata/_edit_use_anchors_ = true
 
-[node name="version" type="Label" parent="UI"]
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="UILayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+metadata/_edit_use_anchors_ = true
+
+[node name="version" type="Label" parent="UILayer/UI"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -72,11 +93,11 @@ offset_bottom = 69.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-text = "VoxVista Mobile vALPHA-0.0.1"
+text = "VoxVista Mobile v0.5"
 label_settings = SubResource("LabelSettings_feb5d")
 horizontal_alignment = 1
 
-[node name="selectedBlock" type="Label" parent="UI"]
+[node name="selectedBlock" type="Label" parent="UILayer/UI"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -87,3 +108,57 @@ offset_right = 145.0
 offset_bottom = -197.0
 grow_vertical = 2
 text = "Selected Block: "
+
+[node name="PauseMenu" type="Control" parent="UILayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_trtic")
+metadata/_edit_use_anchors_ = true
+
+[node name="PauseMenuContainer" type="MarginContainer" parent="UILayer/PauseMenu"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="UILayer/PauseMenu/PauseMenuContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/PauseMenu/PauseMenuContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Resume" type="TextureButton" parent="UILayer/PauseMenu/PauseMenuContainer/HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("8_kvuet")
+texture_pressed = ExtResource("9_trtic")
+texture_hover = ExtResource("10_ir15t")
+stretch_mode = 0
+
+[node name="Quit" type="TextureButton" parent="UILayer/PauseMenu/PauseMenuContainer/HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("11_ca42v")
+texture_pressed = ExtResource("12_rysoc")
+texture_hover = ExtResource("13_ssvqc")
+stretch_mode = 0
+
+[connection signal="pressed" from="UILayer/PauseMenu/PauseMenuContainer/HBoxContainer/Resume" to="UILayer/PauseMenu" method="_on_resume_pressed"]
+[connection signal="pressed" from="UILayer/PauseMenu/PauseMenuContainer/HBoxContainer/Quit" to="UILayer/PauseMenu" method="_on_quit_pressed"]

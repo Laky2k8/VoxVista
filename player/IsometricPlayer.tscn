@@ -1,8 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5ye2yrxc3s0n"]
+[gd_scene load_steps=7 format=3 uid="uid://b5ye2yrxc3s0n"]
 
 [ext_resource type="Script" uid="uid://cwfuyo4cdlr25" path="res://player/camera_iso.gd" id="1_y0kmr"]
 [ext_resource type="Script" uid="uid://c3q85kjq73g35" path="res://player/player_iso.gd" id="2_q2c0k"]
+[ext_resource type="Material" uid="uid://bslu8vu0dnc5r" path="res://assets/shaders/outline.tres" id="2_q5j43"]
 [ext_resource type="ArrayMesh" uid="uid://h4jr5rha4nrh" path="res://assets/player/export/player.obj" id="3_q5j43"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_bopvo"]
+material = ExtResource("2_q5j43")
+flip_faces = true
+size = Vector2(2, 2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bopvo"]
 size = Vector3(1.45869, 2.07194, 1.7)
@@ -20,6 +26,12 @@ near = 0.001
 
 [node name="VoxelViewer" type="VoxelViewer" parent="CameraPivot/Camera3D"]
 view_distance = 256
+
+[node name="pixelOverlay" type="MeshInstance3D" parent="CameraPivot/Camera3D"]
+material_override = ExtResource("2_q5j43")
+material_overlay = ExtResource("2_q5j43")
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_bopvo")
 
 [node name="Player" type="CharacterBody3D" parent="."]
 script = ExtResource("2_q2c0k")

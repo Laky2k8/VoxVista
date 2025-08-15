@@ -1,6 +1,7 @@
 extends Control
 
-@onready var gamePanel = $WorldSelector
+@onready var gamePanel = $UILayer/WorldSelector
+@onready var settingsPanel = $UILayer/SettingsMenu
 
 func _on_play_pressed():
 	print("Play pressed")
@@ -10,6 +11,7 @@ func _on_play_pressed():
 
 func _on_options_pressed():
 	print("Options pressed")
+	settingsPanel.visible = true
 
 
 

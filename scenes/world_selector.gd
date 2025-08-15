@@ -3,7 +3,7 @@ extends VBoxContainer
 @onready var world_selector_panel = $"."
 
 @onready var savefile_list: ItemList = $Panel/Worlds
-@onready var load_button: Button = $Panel/Load
+@onready var load_button: TextureButton = $Panel/Load
 
 @onready var new_world: TextureButton = $Panel/NewWorld
 @onready var name_input: LineEdit = $Panel/WorldName
